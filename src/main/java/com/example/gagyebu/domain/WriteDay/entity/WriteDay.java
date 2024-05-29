@@ -27,9 +27,8 @@ public class WriteDay {
     private Integer date;
 
     @Builder
-    private WriteDay(Long id, Integer month, Integer date) {
+    private WriteDay(Integer month, Integer date) {
 
-        this.id = id;
         this.month = month;
         this.date = date;
     }
