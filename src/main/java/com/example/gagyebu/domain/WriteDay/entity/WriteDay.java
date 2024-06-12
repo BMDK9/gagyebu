@@ -32,5 +32,4 @@ public class WriteDay {
         this.month = month;
         this.date = date;
     }
-
 }
