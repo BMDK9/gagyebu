@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GetWriteDayResponseDto {
 
-    private Integer month;
-    private Integer date;
+    private int month;
+    private int date;
 
     @Builder
-    private GetWriteDayResponseDto(Integer month, Integer date) {
+    private GetWriteDayResponseDto(int month, int date) {
 
         this.month = month;
         this.date = date;

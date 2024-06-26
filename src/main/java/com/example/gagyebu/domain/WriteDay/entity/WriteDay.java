@@ -21,13 +21,17 @@ public class WriteDay {
     private Long id;
 
     @Column(nullable = false)
-    private Integer month;
+    private int month;
 
     @Column(nullable = false)
-    private Integer date;
+    private int date;
+
+//    has many Income
+
+//    has many Outcome
 
     @Builder
-    private WriteDay(Integer month, Integer date) {
+    private WriteDay(int month, int date) {
 
         this.month = month;
         this.date = date;
