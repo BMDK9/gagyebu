@@ -8,5 +8,5 @@ public interface WriteDayService {
 
     CreateWriteDayResponseDto createWriteDay(CreateWriteDayRequestDto req);
 
-    GetWriteDayResponseDto getWriteDay(Long writeDayId);
+    GetWriteDayResponseDto getWriteDay(Integer month, Integer date);
 }
