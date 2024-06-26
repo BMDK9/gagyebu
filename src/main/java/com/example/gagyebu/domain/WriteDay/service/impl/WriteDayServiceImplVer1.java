@@ -6,19 +6,33 @@ import com.example.gagyebu.domain.WriteDay.dto.response.CreateWriteDayResponseDt
 import com.example.gagyebu.domain.WriteDay.entity.WriteDay;
 import com.example.gagyebu.domain.WriteDay.repository.WriteDayRepository;
 import com.example.gagyebu.domain.WriteDay.service.WriteDayService;
+import java.util.Calendar;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class WriteDayServiceImplVer1 implements WriteDayService {
 
     private final WriteDayRepository writeDayRepository;
 
     @Override
+    @Transactional
     public CreateWriteDayResponseDto createWriteDay(CreateWriteDayRequestDto req) {
+
+        if (req.getMonth() == null) {
+            Calendar cal = Calendar.getInstance();
+            req.updateMonth(cal.get(Calendar.MONTH) + 1);
+        }
+
+        if (req.getDate() == null) {
+            Calendar cal = Calendar.getInstance();
+            req.updateDate(cal.get(Calendar.DAY_OF_MONTH));
+        }
 
         WriteDay writeDay = WriteDay.builder()
                 .month(req.getMonth())
@@ -34,9 +48,9 @@ public class WriteDayServiceImplVer1 implements WriteDayService {
     }
 
     @Override
-    public GetWriteDayResponseDto getWriteDay(Long writeDayId) {
+    public GetWriteDayResponseDto getWriteDay(Integer month, Integer date) {
 
-        WriteDay writeDay = writeDayRepository.findById(writeDayId).orElseThrow(
+        WriteDay writeDay = writeDayRepository.findByMonthAndDate(month, date).orElseThrow(
                 () -> new IllegalArgumentException("해당 날짜 가계부 없음"));
 
         log.info("id = {}, month = {}, date = {}",
